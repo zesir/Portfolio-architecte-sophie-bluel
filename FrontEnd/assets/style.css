@@ -133,6 +133,7 @@ body {
   margin: auto;
   font-family: "Work Sans";
   font-size: 14px;
+  background-color: #fffef8;
 }
 header {
   display: flex;
@@ -172,11 +173,20 @@ nav ul {
 nav li {
   padding: 0 10px;
   font-size: 1.2em;
+  font-weight: 400;
+}
+.active {
+  font-weight: 700;
 }
 
-li:hover {
+nav li:hover {
   color: #b1663c;
 }
+
+nav li img {
+  width: 20px;
+}
+
 #introduction {
   display: flex;
   align-items: center;
@@ -255,41 +265,16 @@ input[type="submit"] {
   width: 180px;
   text-align: center;
   border-radius: 60px;
+  transition: all 0.3s;
+}
+
+input[type="submit"]:hover {
+  background-color: #0e2f28;
 }
 
 footer nav ul {
   display: flex;
   justify-content: flex-end;
-  margin: 2em;
-}
-
-.filters {
-  display: flex;
-  justify-content: center;
-  width: 50%;
-  margin: auto;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-.filter-btn {
-  font-family: "Syne";
-  font-weight: 700;
-  color: #1d6154;
-  margin: 2em auto;
-  background: transparent;
-  padding: 10px 20px;
-  text-align: center;
-  border-radius: 60px;
-  border: solid 1px #1d6154;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
-.filter-btn:hover {
-  background-color: #1d6154;
-  color: white;
-}
-
-.selected {
-  background-color: #1d6154;
-  color: white;
+  padding: 2em;
+  background-color: #fff !important;
 }
