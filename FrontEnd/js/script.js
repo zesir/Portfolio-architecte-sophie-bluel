@@ -30,6 +30,18 @@ function displayProjects(projects) {
 //génère les boutons de filtres par catégories
 function generateFilterButtons(projects) {
   filtersContainer.innerHTML = "";
+  const allButton = document.createElement("button");
+  allButton.textContent = "tous";
+  allButton.classList.add("filter-btn", "selected");
+  allButton.addEventListener("click", () => {
+    displayProjects(allProjects);
+    document
+      .querySelectorAll(".filter-btn")
+      .forEach((btn) => btn.classList.remove("selected"));
+    allButton.classList.add("selected");
+  });
+  filtersContainer.appendChild(allButton);
+
   const categories = [...new Set(projects.map((p) => p.category.name))]; // on recupere le nom des catégories dans un tableau
   console.log(categories);
   categories.forEach((cat) => {
@@ -37,7 +49,7 @@ function generateFilterButtons(projects) {
     button.classList.add("filter-btn");
     button.textContent = cat;
     button.addEventListener("click", () => {
-      filterProjects(cat);
+      filterProjects(cat); //appel de la fonction filterProject
       document
         .querySelectorAll(".filter-btn")
         .forEach((btn) => btn.classList.remove("selected"));
