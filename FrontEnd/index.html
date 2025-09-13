@@ -10,19 +10,65 @@
       href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
-    <script src="js/filtre.js" defer></script>
+    <script
+      src="https://kit.fontawesome.com/0b649a6e30.js"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="js/filtre.js" defer></script>
+    <!--<script type="module" src="js/edit.js" defer></script>-->
     <meta name="description" content="" />
     <link rel="stylesheet" href="./assets/style.css" />
     <link rel="stylesheet" href="./assets/filtre.css" />
+    <link rel="stylesheet" href="./assets/edit.css" />
   </head>
   <body>
+    <div class="overlaye">
+      <div class="modale">
+        <div class="header__modale">
+          <div class="icons">
+            <div class="return_icon">
+              <i class="fa-solid fa-arrow-left"></i>
+            </div>
+            <div class="cross_icon">
+              <i class="fa-solid fa-x"></i>
+            </div>
+          </div>
+          <h3>Galerie photo</h3>
+        </div>
+        <div class="gallery-photo">
+          <div class="gallery_modale">
+            <ul></ul>
+          </div>
+        </div>
+        <div class="ajout-photo">
+          <div class="photo-placeholder">
+            <div class="photo-icon"><i class="fa-regular fa-image"></i></div>
+            <label class="btn btn-grey" for="file">+ Ajouter photo</label>
+            <p>jpg,png : 4mo max</p>
+            <input type="file" id="file" hidden />
+          </div>
+          <form class="ajout-projet" action="">
+            <label for="texte"> Titre </label>
+            <input type="text" />
+            <label for="select"> Catégorie </label>
+            <select name="categorie" id=""></select>
+          </form>
+        </div>
+        <div class="modale-container-btn">
+          <button class="btn btn-syne btn-green addPhoto-btn">
+            Ajouter une photo
+          </button>
+          <button class="btn btn-work btn-grey validate-btn">valider</button>
+        </div>
+      </div>
+    </div>
     <header>
       <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
       <nav>
         <ul>
-          <li class="active">projets</li>
+          <li class="active"><a href="../index.html">projets</a></li>
           <li>contact</li>
-          <li>login</li>
+          <li id="nav-log"><a href="assets/pages/login.html">login</a></li>
           <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
         </ul>
       </nav>
@@ -52,7 +98,9 @@
         </article>
       </section>
       <section id="portfolio">
-        <h2>Mes Projets</h2>
+        <div class="title-edit">
+          <h2>Mes Projets</h2>
+        </div>
         <div class="filters"></div>
         <div class="gallery"></div>
       </section>
