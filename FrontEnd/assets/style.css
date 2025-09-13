@@ -137,9 +137,11 @@ body {
 }
 header {
   display: flex;
+
   justify-content: space-between;
   margin: 50px 0;
 }
+
 section {
   margin: 50px 0;
 }
@@ -175,6 +177,11 @@ nav li {
   font-size: 1.2em;
   font-weight: 400;
 }
+nav a {
+  text-decoration: none;
+  color: #000;
+}
+
 .active {
   font-weight: 700;
 }
@@ -210,6 +217,10 @@ nav li img {
 #introduction p {
   margin-bottom: 0.5em;
 }
+#portfolio {
+  margin-top: 5rem;
+}
+
 #portfolio h2 {
   text-align: center;
   margin-bottom: 1em;

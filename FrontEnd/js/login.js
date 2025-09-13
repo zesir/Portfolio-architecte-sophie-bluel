@@ -37,19 +37,12 @@ async function logUser(email, password) {
 
     const data = await response.json();
     if (!response.ok) {
-      throw new Error("Email ou mot de passe incorrect"); // on ignore le message du serveur
+      throw new Error("Email ou mot de passe incorrect");
     }
 
-    if (!response.ok) {
-      const msg = data.message || "Email ou mot de passe incorrect";
-      throw new Error(msg);
-    }
-
-    // Tout est ok
     localStorage.setItem("token", data.token);
     window.location.href = "../../index.html";
   } catch (error) {
-    // Affichage de l'erreur
     errorMsgContainer.innerHTML = "";
     errorMsgContainer.appendChild(errorMsg);
     errorMsg.textContent = error.message;
