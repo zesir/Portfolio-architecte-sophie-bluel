@@ -186,6 +186,11 @@ nav a {
   font-weight: 700;
 }
 
+nav li:hover {
+  color: #b1663c;
+  cursor: pointer;
+}
+
 nav li a:hover {
   color: #b1663c;
 }

@@ -1,10 +1,11 @@
+// filtre.js
 import { allProjects, categories } from "./projects.js";
 
 const gallery = document.querySelector(".gallery");
 const filtersContainer = document.querySelector(".filters");
 
-// Fonction pour afficher les projets
-export function displayProject(projects) {
+// --- Affichage des projets ---
+export function displayProjects(projects) {
   gallery.innerHTML = "";
   projects.forEach((project) => {
     const figure = document.createElement("figure");
@@ -16,48 +17,43 @@ export function displayProject(projects) {
   });
 }
 
-// Générer les boutons de filtres
+// --- Génération des boutons de filtre ---
+
 export function generateFiltersBtn() {
-  const filtersContainer = document.querySelector(".filters");
   filtersContainer.innerHTML = "";
 
   // Bouton "Tous"
   const allBtn = document.createElement("button");
   allBtn.textContent = "Tous";
-  allBtn.classList.add("filter-btn", "all", "selected");
-  // marque un dataset pour le bouton "tous" si tu veux
-  allBtn.dataset.id = "";
-  allBtn.addEventListener("click", function () {
-    displayProject(allProjects);
-    updateSelected(allBtn);
+  allBtn.classList.add("filter-btn", "selected");
+  allBtn.dataset.id = "all";
+  allBtn.addEventListener("click", () => {
+    displayProjects(allProjects);
+    setActiveButton(allBtn);
   });
   filtersContainer.appendChild(allBtn);
 
-  // Boutons pour chaque catégorie
-  categories.forEach(function (cat) {
+  // Boutons catégories
+  categories.forEach((cat) => {
     const btn = document.createElement("button");
-    btn.classList.add("filter-btn");
     btn.textContent = cat.name;
-    btn.dataset.id = String(cat.id); // IMPORTANT : set dataset id (string ok)
-    btn.addEventListener("click", function () {
-      const filtered = allProjects.filter(function (p) {
-        return Number(p.categoryId) === Number(cat.id);
-      });
-      displayProject(filtered);
-      updateSelected(btn);
+    btn.classList.add("filter-btn");
+    btn.dataset.id = cat.id;
+    btn.addEventListener("click", () => {
+      const filtered = allProjects.filter(
+        (p) => Number(p.categoryId) === Number(cat.id)
+      );
+      displayProjects(filtered);
+      setActiveButton(btn);
     });
     filtersContainer.appendChild(btn);
   });
 }
 
-// Mettre à jour le bouton sélectionné
-function updateSelected(activeBtn) {
-  document.querySelectorAll(".filter-btn").forEach((btn) => {
-    btn.classList.remove("selected");
-  });
-  activeBtn.classList.add("selected");
+// --- Classe active pour le bouton sélectionné ---
+function setActiveButton(activeButton) {
+  document
+    .querySelectorAll(".filter-btn")
+    .forEach((btn) => btn.classList.remove("selected"));
+  activeButton.classList.add("selected");
 }
-
-// Initialiser l'affichage
-displayProject(allProjects);
-generateFiltersBtn();

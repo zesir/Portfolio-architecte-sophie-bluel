@@ -1,5 +1,5 @@
 export let allProjects = [];
-export let categories = []; // ajouter la variable categories
+export let categories = [];
 export const API_BASE = "http://localhost:5678/api/";
 
 // Charger les projets
@@ -16,6 +16,7 @@ export async function loadProject() {
 }
 
 // Charger les catégories
+
 export async function loadCategories() {
   try {
     const res = await fetch(`${API_BASE}categories`);
