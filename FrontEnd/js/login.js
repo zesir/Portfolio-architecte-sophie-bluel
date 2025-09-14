@@ -37,7 +37,7 @@ async function logUser(email, password) {
 
     const data = await response.json();
     if (!response.ok) {
-      throw new Error("Email ou mot de passe incorrect");
+      throw new Error("Erreur dans l'identifiant ou le mot de passe");
     }
 
     localStorage.setItem("token", data.token);
