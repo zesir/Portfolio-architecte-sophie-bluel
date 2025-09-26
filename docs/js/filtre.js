@@ -2,7 +2,7 @@
 import { allProjects, categories } from "./projects.js";
 
 const gallery = document.querySelector(".gallery");
-const filtersContainer = document.querySelector(".filters");
+export const filtersContainer = document.querySelector(".filters");
 
 // --- Affichage des projets ---
 export function displayProjects(projects) {

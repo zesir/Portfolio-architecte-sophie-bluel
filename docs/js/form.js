@@ -18,7 +18,30 @@ function getTitleInput() {
   return document.querySelector(".ajout-photo input[type='text']");
 }
 
+const titleInput = getTitleInput();
+const select = getSelect();
+
+export function showError(message) {
+  const alertContainer = document.querySelector(".alertContainer");
+  const alertInput = document.createElement("p");
+  while (alertContainer.firstChild) {
+    alertContainer.removeChild(alertContainer.firstChild);
+  }
+  alertInput.textContent = message;
+  alertInput.classList.add("red");
+  alertContainer.appendChild(alertInput);
+}
+
 let fileInput = null;
+
+function checkFormCompletion() {
+  const file = fileInput.files && fileInput.files[0];
+  if (titleInput.value.trim() && select.value && file) {
+    validerBtn.classList.add("btn-green");
+  } else {
+    validerBtn.classList.remove("btn-green");
+  }
+}
 
 // ===== preview + input file =====
 function attachFileInputListener() {
@@ -86,16 +109,14 @@ export async function handleFormSubmit() {
   const select = getSelect();
   const file = fileInput && fileInput.files ? fileInput.files[0] : null;
 
-  if (!titleInput || !select) {
-    alert("Formulaire non initialisé correctement (inputs manquants)");
-    return;
-  }
-
   if (!titleInput.value || !select.value || !file) {
-    alert("Merci de remplir tous les champs !");
+    showError("Merci de remplir tout les champs");
+
     return;
   }
-
+  if (titleInput.value && select.value && file) {
+    validerBtn.classList.add("btn-green");
+  }
   const formData = new FormData();
   formData.append("title", titleInput.value);
   formData.append("category", select.value);
@@ -148,6 +169,11 @@ export async function handleFormSubmit() {
 // ===== initialisation publique =====
 export function initForm() {
   attachFileInputListener();
+  // écoute les changements sur tous les champs
+  titleInput.addEventListener("input", checkFormCompletion);
+  select.addEventListener("change", checkFormCompletion);
+  fileInput.addEventListener("change", checkFormCompletion);
+
   const valider = document.querySelector(".validate-btn");
   if (valider)
     valider.addEventListener("click", (e) => {

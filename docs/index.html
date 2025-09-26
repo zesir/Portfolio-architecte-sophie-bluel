@@ -15,7 +15,6 @@
       crossorigin="anonymous"
     ></script>
     <script type="module" src="js/filtre.js" defer></script>
-    <script type="module" src="js/edit.js" defer></script>
     <script type="module" src="js/main.js" defer></script>
     <meta name="description" content="" />
     <link rel="stylesheet" href="./assets/css/style.css" />
@@ -39,6 +38,16 @@
         <div class="gallery-photo">
           <div class="gallery_modal">
             <ul></ul>
+            <template id="project-template">
+              <li>
+                <div class="image_container">
+                  <img src="" alt="" />
+                  <div class="trash_icon" data-id="">
+                    <i class="fa-solid fa-trash-can"></i>
+                  </div>
+                </div>
+              </li>
+            </template>
           </div>
         </div>
         <div class="ajout-photo">
@@ -54,6 +63,7 @@
             <label for="select"> Catégorie </label>
             <select name="categorie" id=""></select>
           </form>
+          <div class="alertContainer"></div>
         </div>
         <div class="modal-container-btn">
           <button class="btn btn-syne btn-green addPhoto-btn">

@@ -1,3 +1,6 @@
+import { showError } from "./form.js";
+
+import { filtersContainer } from "./filtre.js";
 import { API_BASE } from "./projects.js";
 
 const form = document.querySelector("form");
@@ -5,14 +8,25 @@ const errorMsgContainer = document.querySelector(".error-message");
 const errorMsg = document.createElement("p");
 export const navLog = document.getElementById("nav-log");
 
+function toggle(el, show, displayType = "flex") {
+  if (!el) return;
+  el.style.display = show ? displayType : "none";
+}
+
 // Logout
 function logout() {
   localStorage.removeItem("token");
 
   const editBtn = document.querySelector(".edit-btn");
-  if (editBtn) editBtn.style.display = "none";
 
-  navLog.innerHTML = `<a href="assets/pages/login.html">Login</a>`;
+  if (editBtn) editBtn.style.display = "none";
+  navLog.replaceChildren();
+
+  const navLogLink = document.createElement("a");
+  navLogLink.href = "assets/pages/login.html";
+  navLogLink.textContent = "login";
+  navLog.appendChild(navLogLink);
+  toggle(filtersContainer, true);
 }
 
 // Si clic sur nav-log et qu'on est déjà connecté
@@ -63,11 +77,3 @@ form.addEventListener("submit", async (event) => {
     showError(err.message);
   }
 });
-
-// Fonction utilitaire pour afficher une erreur
-function showError(msg) {
-  errorMsgContainer.innerHTML = "";
-  errorMsg.textContent = msg;
-  errorMsg.style.color = "red";
-  errorMsgContainer.appendChild(errorMsg);
-}

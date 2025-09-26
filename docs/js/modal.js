@@ -1,4 +1,4 @@
-import { displayProjects } from "./filtre.js";
+import { displayProjects, filtersContainer } from "./filtre.js";
 import { navLog } from "./login.js";
 import { allProjects, API_BASE, setAllProjects } from "./projects.js";
 
@@ -10,6 +10,7 @@ const ajoutPhoto = document.querySelector(".ajout-photo");
 const gallerie = document.querySelector(".gallery-photo");
 const backBtn = document.querySelector(".return_icon");
 const titre = document.querySelector(".header__modal h3");
+const template = document.getElementById("project-template");
 
 export function toggle(el, show, displayType = "flex") {
   if (!el) return;
@@ -21,6 +22,8 @@ export function initEditMode() {
   if (!token) return;
 
   const titleEdit = document.querySelector(".title-edit");
+
+  toggle(filtersContainer, false);
 
   // bouton "modifier"
   const editBtn = document.createElement("button");
@@ -81,15 +84,17 @@ export function displayProjectsInModal(projects) {
   galleryUl.innerHTML = "";
 
   projects.forEach((project) => {
-    const li = document.createElement("li");
-    li.innerHTML = `
-      <div class="image_container">
-        <img src="${project.imageUrl}" alt="${project.title}" />
-        <div class="trash_icon" data-id="${project.id}">
-          <i class="fa-solid fa-trash-can"></i>
-        </div>
-      </div>`;
-    galleryUl.appendChild(li);
+    const clone = template.content.cloneNode(true);
+
+    // Modifier le clone avec les infos du projet
+    const img = clone.querySelector("img");
+    img.src = project.imageUrl;
+    img.alt = project.title;
+
+    const trash = clone.querySelector(".trash_icon");
+    trash.dataset.id = project.id;
+
+    galleryUl.appendChild(clone);
   });
 
   // gestion suppression
@@ -102,24 +107,31 @@ async function handleDeleteClick(e) {
   if (!trashBtn) return;
 
   const projectId = trashBtn.dataset.id;
+  const token = localStorage.getItem("token");
+
   const confirmation = confirm("Voulez-vous vraiment supprimer ce projet ?");
   if (!confirmation) return;
 
   try {
-    const token = localStorage.getItem("token");
     const response = await fetch(`${API_BASE}works/${projectId}`, {
       method: "DELETE",
-      headers: { Authorization: `Bearer ${token}` },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
 
-    if (response.ok) {
-      const updatedProjects = allProjects.filter((p) => p.id != projectId);
-      setAllProjects(updatedProjects);
-      displayProjects(updatedProjects);
-      displayProjectsInModal(updatedProjects);
-    } else {
+    if (!response.ok) {
+      const errText = await response.text();
+      console.error("Erreur API :", errText);
       alert("Impossible de supprimer le projet.");
+      return;
     }
+
+    // suppression côté front
+    const updatedProjects = allProjects.filter((p) => p.id != projectId);
+    setAllProjects(updatedProjects);
+    displayProjects(updatedProjects);
+    displayProjectsInModal(updatedProjects);
   } catch (err) {
     console.error("Erreur réseau :", err);
   }
