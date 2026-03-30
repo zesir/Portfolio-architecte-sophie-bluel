@@ -1,6 +1,6 @@
 export let allProjects = [];
 export let categories = [];
-export const API_BASE = "http://localhost:5678/api/";
+export const API_BASE = "https://sophie-bluel-backend-6wtb.onrender.com/api/";
 
 // Charger les projets
 export async function loadProject() {
