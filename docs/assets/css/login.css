@@ -52,3 +52,17 @@
 .error-message {
   margin-top: 10px;
 }
+
+/* Tablette */
+@media screen and (max-width: 768px) {
+  #login {
+    width: 75%;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 480px) {
+  #login {
+    width: 90%;
+  }
+}
